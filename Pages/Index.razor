@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<h3>Cola Circular</h3>
+
+<button @onclick="EncolarElemento">Encolar</button>
+<button @onclick="DesencolarElemento">Desencolar</button>
+
+<h4>Estado de la cola:</h4>
+<p>@EstadoCola</p>
+
+<h4>Elementos en la cola:</h4>
+<ul>
+    @foreach (var item in cola.ObtenerElementos())
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@code {
+    ColaCircular<string> cola = new(5);  // Inicializamos con capacidad 5
+    int contador = 1;
+
+    // Estado de la cola (vacía o llena)
+    string EstadoCola => cola.EstaVacia() ? "La cola está vacía." : cola.EstaLlena() ? "La cola está llena." : "La cola tiene elementos.";
+
+    void EncolarElemento() => cola.Encolar($"Item {contador++}");
+
+    void DesencolarElemento() => cola.Desencolar();
+}
